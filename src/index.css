@@ -66,12 +66,13 @@ button {
   position: relative;
   width: 100px;
   height: 40px;
-  border-radius: 20px;
+  border-radius: 10px;
 
   background-color: var(--GRAY);
   margin-top: 10px;
   margin-left: 10px;
-  transition: background-color 0.3s;
+
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
 
   box-shadow: 0px 0px 2px 2px #ffffff44;
@@ -80,7 +81,9 @@ button {
 }
 
 button:hover {
+  transform: translate3d(0, -5px, 0);
   background-color: var(--LIGHT-GRAY);
+  box-shadow: 4px 4px 4px 4px var(--DARK-RED);
 }
 
 button:active {
@@ -92,10 +95,12 @@ button:active {
   width: 40%;
   margin-left: calc((100vw - 40%) / 2);
 
-  margin-top: 20vh;
+  margin-top: 10vh;
 
   padding: 20px 10px;
   border-radius: 20px;
+
+  border: solid 2px var(--GRAY);
 
   background-color: #470000;
 

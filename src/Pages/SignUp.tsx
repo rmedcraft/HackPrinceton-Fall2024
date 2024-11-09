@@ -8,12 +8,17 @@ export default function SignUp() {
 
                 <h2>Sign Up: </h2>
                 <div className="loginFlex">
+                    <label>Email: </label>
+                    <input></input>
                     <label>Username: </label>
                     <input></input>
                     <label>Password: </label>
                     <input type="password"></input>
+                    <label>Confirm Password: </label>
+                    <input type="password"></input>
                 </div>
                 <button>Register!</button>
+                {/* onClick -> check that the username doesnt already exist in the db, check that the passwords match */}
             </div>
         </>
     )

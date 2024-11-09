@@ -14,6 +14,8 @@ export default function Login() {
                     <input type="password"></input>
                 </div>
                 <button>Login!</button>
+                {/* onClick -> check if the username & password exists in the database, if it does bring them to the home page,
+                 otherwise tell them to log in again*/}
             </div>
         </>
     )
