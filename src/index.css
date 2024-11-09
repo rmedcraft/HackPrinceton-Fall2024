@@ -20,7 +20,39 @@
   background-color: var(--LIGHT-RED);
 }
 
-.homeImg {
+.startContainer {
+  animation: fadeIn forwards 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0px, 0px, 0px);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: translate3d(0px, -10px, 0px);
+  }
+}
+
+.backButton {
+  position: "absolute";
+  left: "5px";
+  top: "5px";
+  margin: "0px";
+  width: 1.2em;
+  height: 1.2em;
+  transition: color 300ms, transform 300ms;
+}
+
+.backButton:hover {
+  color: var(--GRAY);
+  background-position: center;
+  transform: translate3d(0px, -5px, 0px);
+}
+
+.startImg {
   background-image: url("./assets/addition.png");
   background-size: cover;
   width: 200px;
@@ -66,6 +98,8 @@ button:active {
   border-radius: 20px;
 
   background-color: #470000;
+
+  animation: fadeIn forwards 1s;
 }
 
 .loginFlex {
@@ -92,4 +126,3 @@ a {
   text-decoration: none;
   color: white;
 }
-

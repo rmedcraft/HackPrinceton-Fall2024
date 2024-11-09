@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 export default function Start() {
     return (
-        <>
-            <div className="homeImg"></div>
+        <div className="startContainer">
+            <div className="startImg"></div>
             <h1 className="title" style={{
                 textAlign: "center"
             }}>Welcome to !NAME PENDING!</h1>
@@ -15,6 +15,6 @@ export default function Start() {
                 <Link to="/login"><button>Login</button></Link>
                 <Link to="/signup"><button>Sign Up</button></Link>
             </div>
-        </>
+        </div>
     )
 }
