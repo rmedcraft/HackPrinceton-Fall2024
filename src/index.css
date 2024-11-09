@@ -90,6 +90,12 @@ button:active {
   background-color: white;
 }
 
+.question {
+  min-width: 90%;
+  max-width: 90%;
+  margin-left: 3%
+}
+
 .loginContainer {
   /*centers the div*/
   width: 40%;
@@ -100,7 +106,7 @@ button:active {
   padding: 20px 10px;
   border-radius: 20px;
 
-  border: solid 2px var(--GRAY);
+  border: solid 2px var(--DARKER-RED);
 
   background-color: #470000;
 
@@ -113,7 +119,8 @@ button:active {
   row-gap: 20px;
 }
 
-input {
+input,
+textarea {
   background-color: var(--GRAY);
   border-color: var(--DARK-RED);
   border-radius: 20px;
@@ -122,7 +129,8 @@ input {
   transition: background-color 0.2s;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   outline: none;
   background-color: var(--LIGHT-GRAY);
 }
