@@ -1,15 +1,28 @@
 import { Link } from "react-router-dom";
+import axios from "axios"
 import { useState, useEffect } from "react";
 
 export default function Login() {
     const [message, setMessage] = useState('');
 
+
+    const fetchAPI = async () => {
+        const response = await axios.get("http://localhost:3000/api/test")
+        setMessage(JSON.stringify(response.data))
+
+    }
     useEffect(() => {
-        fetch('/api/test')
-            .then((response) => response.json())
-            .then((data) => setMessage(data.message))
-            .catch((error) => console.error('Error fetching data:', error));
-    }, []);
+        fetchAPI()
+        // fetch('/api/test', {
+        //     "method": "GET",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     }
+        // })
+        //     .then((response) => response.json())
+        //     .then((data) => setMessage(data.message))
+        //     .catch((error) => console.error('Error fetching data:', error));
+    }, [message]);
 
     return (
         <>
@@ -26,9 +39,9 @@ export default function Login() {
                 <button>Login!</button>
                 {/* onClick -> check if the username & password exists in the database, if it does bring them to the home page,
                  otherwise tell them to log in again*/}
+                <h1>{message}</h1>
             </div>
 
-            <h1>{message}</h1>
         </>
     )
 }
