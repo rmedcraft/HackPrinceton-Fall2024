@@ -21,7 +21,7 @@
 }
 
 h1 {
-  
+  text-shadow: 2px 2px 2px var(--BLACK);
 }
 
 .startContainer {
@@ -128,6 +128,7 @@ button:active {
 
 input,
 textarea {
+  font-family: "Outfit", sans-serif;
   background-color: var(--GRAY);
   border-color: var(--DARK-RED);
   border-radius: 20px;
