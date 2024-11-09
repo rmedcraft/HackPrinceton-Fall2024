@@ -3,8 +3,19 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import User from './db.js';  // Import the User model from db.js
 
+import cors from 'cors';
+
 const app = express();
 const PORT = 3000;
+
+// Allow all origins (for development purposes, you can restrict this to specific origins in production)
+app.use(cors({
+    origin: 'http://localhost:5173', // Frontend origin
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+}));
+
+app.use(express.json());
 
 // MongoDB connection setup
 const mongoURI = 'mongodb+srv://ramshabilal:RsRRPoY9gZCVNjhi@cluster0.siam2zv.mongodb.net/hackprinceton?retryWrites=true&w=majority&appName=Cluster0';
@@ -28,7 +39,8 @@ app.post('/api/signup', async (req, res) => {
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
-
+        console.log("here")
+        console.log(username, "  ", password, "  ", hashedPassword)
         // Create a new user with empty interests
         const newUser = new User({ username, password: hashedPassword, interests: [] });
         await newUser.save();
@@ -43,17 +55,21 @@ app.post('/api/signup', async (req, res) => {
 // Login route
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
-
+    console.log("login", username, password)
     try {
         // Check if the user exists
         const user = await User.findOne({ username });
+        console.log(user)
         if (!user) {
+            console.log("user not found")
             return res.status(400).json({ message: 'User not found' });
         }
 
         // Compare the hashed password with the input password
         const isPasswordValid = await bcrypt.compare(password, user.password);
+        console.log(isPasswordValid);
         if (!isPasswordValid) {
+            console.log("invalid password");
             return res.status(400).json({ message: 'Invalid password' });
         }
 
