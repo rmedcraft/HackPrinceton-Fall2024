@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quicksand:wght@300..700&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
+:root {
+  box-sizing: border-box;
+
+  font-family: "Outfit", sans-serif;
+  color: white;
+
+  background: linear-gradient(to top, var(--DARK-RED), var(--LIGHT-RED));
+  min-height: 100vh;
+  /*COLOR PALETTE*/
+  --DARK-RED: #470000;
+  --DARKER-RED: #800000;
+  --RED: #CE0000;
+  --LIGHT-RED: #FF0000;
+  --GRAY: #A9A9A9;
+  --LIGHT-GRAY: #D3D3D3;
+  --BLACK: #000000;
+  background-color: var(--LIGHT-RED);
+}
+
+.homeImg {
+  background-image: url("./assets/addition.png");
+  background-size: cover;
+  width: 200px;
+  height: 200px;
+
+  margin-top: 20vh;
+  margin-left: calc((100vw - 200px) / 2);
+}
+
+button {
+  position: relative;
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+
+  background-color: var(--GRAY);
+  margin-top: 10px;
+  margin-left: 10px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+
+  box-shadow: 0px 0px 2px 2px #ffffff44;
+
+  border: none;
+}
+
+button:hover {
+  background-color: var(--LIGHT-GRAY);
+}
+
+button:active {
+  background-color: white;
+}
+
+.loginContainer {
+  /*centers the div*/
+  width: 40%;
+  margin-left: calc((100vw - 40%) / 2);
+
+  margin-top: 20vh;
+
+  padding: 20px 10px;
+  border-radius: 20px;
+
+  background-color: #470000;
+}
+
+.loginFlex {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+input {
+  background-color: var(--GRAY);
+  border-color: var(--DARK-RED);
+  border-radius: 20px;
+  padding: 10px;
+  border-width: 5px;
+  transition: background-color 0.2s;
+}
+
+input:focus {
+  outline: none;
+  background-color: var(--LIGHT-GRAY);
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
