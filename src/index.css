@@ -20,6 +20,10 @@
   background-color: var(--LIGHT-RED);
 }
 
+h1 {
+  
+}
+
 .startContainer {
   animation: fadeIn forwards 1s;
 }
@@ -53,7 +57,7 @@
 }
 
 .startImg {
-  background-image: url("./assets/addition.png");
+  background-image: url("./assets/division.png");
   background-size: cover;
   width: 200px;
   height: 200px;
@@ -68,32 +72,35 @@ button {
   height: 40px;
   border-radius: 10px;
 
-  background-color: var(--GRAY);
+  color: white;
+
+  background-color: var(--DARKER-RED);
   margin-top: 10px;
   margin-left: 10px;
 
   transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
 
-  box-shadow: 0px 0px 2px 2px #ffffff44;
+  box-shadow: 0px 0px 2px 2px var(--DARK-RED);
 
   border: none;
 }
 
 button:hover {
   transform: translate3d(0, -5px, 0);
-  background-color: var(--LIGHT-GRAY);
-  box-shadow: 4px 4px 4px 4px var(--DARK-RED);
+  background-color: var(--RED);
+  box-shadow: 4px 4px 4px 4px var(--BLACK);
 }
 
 button:active {
-  background-color: white;
+  background-color: var(--LIGHT-RED);
 }
 
 .question {
   min-width: 90%;
   max-width: 90%;
-  margin-left: 3%
+  margin-left: 3%;
+  min-height: 10em
 }
 
 .loginContainer {
