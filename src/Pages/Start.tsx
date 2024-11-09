@@ -14,6 +14,7 @@ export default function Start() {
             }}>
                 <Link to="/login"><button>Login</button></Link>
                 <Link to="/signup"><button>Sign Up</button></Link>
+                <Link to="/class-management"><button>Class Management</button></Link>
             </div>
         </div>
     )
