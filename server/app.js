@@ -171,6 +171,7 @@ app.post('/api/login', async (req, res) => {
 // POST route to handle question customization
 app.post('/home', async (req, res) => {
     const { question } = req.body;
+    console.log(req.body, ": request body")
 
     if (!question) {
         return res.status(400).json({ message: "Question is required" });
@@ -183,7 +184,9 @@ app.post('/home', async (req, res) => {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
+    console.log(currentUser, "here")
     classList = currentUser.students;
+
 
     console.log(classList);
 
@@ -207,38 +210,38 @@ app.post('/home', async (req, res) => {
 app.get('/class-management', async (req, res) => {
     try {
 
-    if (!loggedInUser) {
-        return res.status(401).json({ message: 'Unauthorized' });
-    }
-      const user = await User.findOne({ username: currentUser.username }); // Adjust as needed
-      res.json(user.students); // Return the list of students
+        if (!loggedInUser) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+        const user = await User.findOne({ username: currentUser.username }); // Adjust as needed
+        res.json(user.students); // Return the list of students
     } catch (err) {
-      res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message });
     }
-  });
-  
-  // Route to add a new student
-  app.post('/class-management', async (req, res) => {
+});
+
+// Route to add a new student
+app.post('/class-management', async (req, res) => {
     const { name, interests } = req.body;
-    
+
     try {
         if (!loggedInUser) {
             return res.status(401).json({ message: 'Unauthorized' });
         }
-      const user = await User.findOne({ username: currentUser.username }); // Adjust as needed
-      const newStudent = { name, interests };
-      
-      user.students.push(newStudent);
-      await user.save();
+        const user = await User.findOne({ username: currentUser.username }); // Adjust as needed
+        const newStudent = { name, interests };
 
-      currentUser = user;
-      classList = currentUser.students;
-      
-      res.status(201).json({ id: newStudent._id, name, interests }); // Return the new student's data with ID
+        user.students.push(newStudent);
+        await user.save();
+
+        currentUser = user;
+        classList = currentUser.students;
+
+        res.status(201).json({ id: newStudent._id, name, interests }); // Return the new student's data with ID
     } catch (err) {
-      res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message });
     }
-  });
+});
 
 // Start the server
 app.listen(PORT, () => {

@@ -42,7 +42,7 @@ export default function SignUp() {
                 </h2>
             </Link>
 
-            <div className="loginContainer">
+            <div className="container">
                 <h2>Sign Up: </h2>
                 <div className="loginFlex">
                     <label>Username: </label>

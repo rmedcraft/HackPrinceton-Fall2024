@@ -6,7 +6,7 @@ export default function Start() {
             <div className="startImg"></div>
             <h1 className="title" style={{
                 textAlign: "center"
-            }}>Welcome to Lesson Content Personalizer</h1>
+            }}>Lesson Content Personalizer</h1>
             <div style={{
                 display: "flex",
                 justifyContent: "center",
