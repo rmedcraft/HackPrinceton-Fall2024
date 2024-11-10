@@ -1,10 +1,12 @@
+import dotenv from "dotenv";
+dotenv.config({ path: '../.env' })
 import express from 'express';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import User from './db.js';  // Import the User model from db.js
 import cors from 'cors';
 import Anthropic from "@anthropic-ai/sdk";
-import dotenv from "dotenv"
+
 
 const app = express();
 const PORT = 3000;
@@ -14,7 +16,10 @@ app.use(cors({
     origin: 'http://localhost:5173', // Frontend origin
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
+    credentials: true
 }));
+
+app.options('*', cors());
 
 app.use(express.json());
 
@@ -26,7 +31,6 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // Middleware
 app.use(express.json());
-dotenv.config()
 
 const anthropic = new Anthropic({
     apiKey: process.env.ANTHROPIC_API_KEY
