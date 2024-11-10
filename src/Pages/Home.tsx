@@ -10,6 +10,9 @@ export default function Home() {
     const [keys, setKeys] = useState([""])
     const [values, setValues] = useState([""])
 
+    // const [keyValuePairs, setKeyValuePairs] = useState([])
+    // const [student, setStudent] = useState({})
+
     const [expandedStudent, setExpandedStudent] = useState<number | null>(null);
 
     const toggleStudent = (studentId: number) => {
@@ -27,13 +30,10 @@ export default function Home() {
             const response = await axios.post('http://localhost:3000/home', {
                 question
             });
+            console.log(response)
 
-            // const response = await axios.get("http://localhost:3000/class-management")
-            console.log("response", response.data)
             setKeys(Object.keys(response.data))
             setValues(Object.values(response.data))
-            console.log(keys)
-            console.log(values)
 
             // let keys: string[] = Object.keys(response.data)
             // let values: string[] = Object.values(response.data)
@@ -74,7 +74,7 @@ export default function Home() {
                 {loading && <div className="lds-facebook"><div></div><div></div><div></div></div>}
                 {message.length > 0 && <p>{message}</p>}
                 {keys.map((key, index) => (
-                    <div key={key + index} className="student-card">
+                    <div key={key} className="student-card">
                         <button
                             onClick={() => toggleStudent(index)}
                             className="student-button"
