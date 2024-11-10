@@ -69,6 +69,8 @@ export default function Home() {
                 <textarea className="question" onChange={(evt) => setQuestion(evt.target.value)}></textarea>
                 <button onClick={handleSubmit}>Submit</button>
                 <Link to="/class-management"><button>Manage Class</button></Link>
+                <Link to="/"><button>Log Out</button></Link>
+
             </div>
             <div className="container outputDiv">
                 {loading && <div className="lds-facebook"><div></div><div></div><div></div></div>}
