@@ -73,6 +73,7 @@ button {
   border-radius: 10px;
 
   color: white;
+  font-family: "Outfit", sans-serif;
 
   background-color: var(--DARKER-RED);
   margin-top: 10px;
