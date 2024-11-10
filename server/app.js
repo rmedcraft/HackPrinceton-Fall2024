@@ -49,48 +49,32 @@ async function getCustomizedQuestion(student, question) {
         console.log("here")
         console.log(studentName, "  ", interests, "  ", question)
 
-        // Format the Claude API message
-        const msg = await anthropic.messages.create({
-            model: "claude-3-5-sonnet-20241022", // Use the model you need
-            max_tokens: 250,
-            temperature: 0, // Set to 0 for deterministic answers
-            system: "You are a teacher's assistant. You will be provided with a question and a student profile, containing information about the student's interests. You will create a custom version of the question that aligns with one of the student's interests.",
-            messages: [
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": `
-                <examples>
-                  <example>
-                    <example_description>
-                      This response accurately applies the question to one of the student's interests.
-                    </example_description>
-                    <problem>
-                      ${question}
-                    </problem>
-                    <name>
-                      ${student}
-                    </name>
-                    <interest_list>
-                      ${interests}
-                    </interest_list>
-                    <ideal_output>
-                      // The Claude API will customize this for the student's interests.
-                    </ideal_output>
-                  </example>
-                </examples>
-              `
-                        },
-                        {
-                            "type": "text",
-                            "text": `Question: ${question}\nStudent Profile:\nName: ${student}\nInterests: ${interests}`
-                        }
-                    ]
-                }
-            ]
-        });
+    // Format the Claude API message
+    const msg = await anthropic.messages.create({
+      model: "claude-3-5-haiku-latest", // Use the model you need
+      max_tokens: 250,
+      temperature: 0, // Set to 0 for deterministic answers
+      system: "You are a teacher's assistant. You will be provided with a question and a student profile, containing information about the student's interests. You will create a custom version of the question that aligns with one of the student's interests.",
+      messages: [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "<examples>\n<example>\n<example_description>\nThis response accurately applies the given math problem to one of the student's interests.\n</example_description>\n<name>\nZachary\n</name>\n<problem>\n6x + 15 = 51\nSolve for x.\n</problem>\n<interest_list>\nOuter Space, Football, Dinosaurs, \n</interest_list>\n<ideal_output>\nA team scored several touchdowns worth 6 points each, plus they already had 15 points from field goals. If they ended with 51 total points, how many touchdowns did they score?\n</ideal_output>\n</example>\n<example>\n<example_description>\nThis response accurately applies the given math problem to one of the student's interests.\n</example_description>\n<name>\nCarol\n</name>\n<problem>\n6x + 15 = 51\nSolve for x.\n</problem>\n<interest_list>\nHiking, Computer Programming, Sustainability, \n</interest_list>\n<ideal_output>\nIf each coal plant emits 6 tons of CO2 daily and other sources emit 15 tons daily, how many coal plants are operating if the total daily emissions are 51 tons?\n</ideal_output>\n</example>\n</examples>\n\n"
+            },
+            {
+              "type": "text",
+              "text": "Math Problem:\n{{problem}}\n\nStudent Profile:\nName: {{name}}\nInterests: {{interest_list}}"
+            },
+            {
+              "type": "text",
+              "text": "<name>\n${name}\n</name>\n<problem>\n${problem}\n</problem>\n<interest_list>\n${interest_list}\n</interest_list>"
+            }
+          ]
+        }
+      ]
+    });
 
 
         // Return the customized question from the API's response
