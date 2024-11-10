@@ -6,6 +6,7 @@
   "proxy": "http://localhost:3000",
   "scripts": {
     "dev": "vite",
+    "backend": "node --env-file=.env ./server/app.js",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

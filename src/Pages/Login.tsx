@@ -36,7 +36,7 @@ export default function Login() {
                 </h2>
             </Link>
 
-            <div className="loginContainer">
+            <div className="container">
                 <h2>Login: </h2>
                 <div className="loginFlex">
                     <label>Username: </label>
