@@ -49,32 +49,46 @@ async function getCustomizedQuestion(student, question) {
         console.log("here")
         console.log(studentName, "  ", interests, "  ", question)
 
-    // Format the Claude API message
-    const msg = await anthropic.messages.create({
-      model: "claude-3-5-haiku-latest", // Use the model you need
-      max_tokens: 250,
-      temperature: 0, // Set to 0 for deterministic answers
-      system: "You are a teacher's assistant. You will be provided with a question and a student profile, containing information about the student's interests. You will create a custom version of the question that aligns with one of the student's interests.",
-      messages: [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "text",
-              "text": "<examples>\n<example>\n<example_description>\nThis response accurately applies the given math problem to one of the student's interests.\n</example_description>\n<name>\nZachary\n</name>\n<problem>\n6x + 15 = 51\nSolve for x.\n</problem>\n<interest_list>\nOuter Space, Football, Dinosaurs, \n</interest_list>\n<ideal_output>\nA team scored several touchdowns worth 6 points each, plus they already had 15 points from field goals. If they ended with 51 total points, how many touchdowns did they score?\n</ideal_output>\n</example>\n<example>\n<example_description>\nThis response accurately applies the given math problem to one of the student's interests.\n</example_description>\n<name>\nCarol\n</name>\n<problem>\n6x + 15 = 51\nSolve for x.\n</problem>\n<interest_list>\nHiking, Computer Programming, Sustainability, \n</interest_list>\n<ideal_output>\nIf each coal plant emits 6 tons of CO2 daily and other sources emit 15 tons daily, how many coal plants are operating if the total daily emissions are 51 tons?\n</ideal_output>\n</example>\n</examples>\n\n"
-            },
-            {
-              "type": "text",
-              "text": "Math Problem:\n{{problem}}\n\nStudent Profile:\nName: {{name}}\nInterests: {{interest_list}}"
-            },
-            {
-              "type": "text",
-              "text": "<name>\n${name}\n</name>\n<problem>\n${problem}\n</problem>\n<interest_list>\n${interest_list}\n</interest_list>"
-            }
-          ]
-        }
-      ]
-    });
+        // Format the Claude API message
+        const msg = await anthropic.messages.create({
+            model: "claude-3-5-haiku-latest",
+            max_tokens: 250,
+            temperature: 0.1,
+            system: "You are a teacher's assistant. You will be provided with a math problem and a student profile, containing information about a student's interests. You will create a custom word problem that aligns with one of the student's interests. Respond with only the completed word problem, not any reasoning you did to arrive at that word problem. ",
+            messages: [
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": "<examples>\n<example>\n<example_description>\nThis response accurately applies the given math problem to Football, which appears in the list of Zachary's interests. The response is concise and does not include a checklist.\n</example_description>\n<name>\nZachary\n</name>\n<problem>\n6x + 15 = 51\nSolve for x.\n</problem>\n<interest_list>\nOuter Space, Football, Dinosaurs, \n</interest_list>\n<ideal_output>\nA team scored several touchdowns worth 6 points each, plus they already had 15 points from field goals. If they ended with 51 total points, how many touchdowns did they score?\n</ideal_output>\n</example>\n<example>\n<example_description>\nThis response accurately applies the given math problem to Sustainability, which appears in the list of Carol's interests. The response is concise and does not include a checklist.\n</example_description>\n<name>\nCarol\n</name>\n<problem>\n6x + 15 = 51\nSolve for x.\n</problem>\n<interest_list>\nHiking, Computer Programming, Sustainability, \n</interest_list>\n<ideal_output>\nIf each coal plant emits 6 tons of CO2 daily and other sources emit 15 tons daily, how many coal plants are operating if the total daily emissions are 51 tons?\n</ideal_output>\n</example>\n<example>\n<name>\nZara\n</name>\n<problem>\nx - 0.25x = 45\n</problem>\n<interest_list>\nComic Books, Gaming, Anime\n</interest_list>\n<ideal_output>\nA new video game costs x. After a 25% discount, the price is 45. What was the original price?\n</ideal_output>\n</example>\n<example>\n<name>\nMarcus\n</name>\n<problem>\nx + (2x + 5) = 35\n</problem>\n<interest_list>\nChess, Swimming, Basketball\n</interest_list>\n<ideal_output>\nYour team scores x points in the first quarter. In the second quarter, you score twice as many points plus 5. If you scored 35 points total in both quarters, how many points did you score in the first quarter?\n</ideal_output>\n</example>\n<example>\n<name>\nSofia\n</name>\n<problem>\n(8 × 6) + 20 + 100 = x\n</problem>\n<interest_list>\nHiking, Photography, Music Production\n</interest_list>\n<ideal_output>\nYour camera's memory card can store x photos. If each video takes up space equal to 8 photos, and you've stored 6 videos and 20 photos, with 100 spaces still free, what is the total capacity of your memory card?\n</ideal_output>\n</example>\n<example>\n<name>\nJackson\n</name>\n<problem>\n5x + 30 = 280\n</problem>\n<interest_list>\nCreative Writing, Rock Collecting, Guitar Playing\n</interest_list>\n<ideal_output>\nYou practice guitar for x minutes each day. After 5 days, plus an extra 30-minute session, you've practiced for 280 minutes total. How long do you practice each day?\n</ideal_output>\n</example>\n</examples>\n\n"
+                        },
+                        {
+                            "type": "text",
+                            "text": `Math Problem:\n{${question}}\n\nStudent Profile:\nName: {${studentName}}\nInterests: {${interests}}`
+                        }
+                    ]
+                },
+                {
+                    "role": "assistant",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": "I understand what I need to do. I need craft a word problem for that math problem that connects to one of the student's interests in a meaningful way. Would you like me to include any explanation of the word problem in my next message, or just the problem?"
+                        }
+                    ]
+                },
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": "Answer with only the word problem please, Claude."
+                        }
+                    ]
+                }
+            ]
+        });
 
 
         // Return the customized question from the API's response
@@ -152,6 +166,7 @@ app.post('/home', async (req, res) => {
     }
 
     const customizedQuestions = {};
+    console.log(question)
     for (const student in classList) {
         if (classList.hasOwnProperty(student)) {
             const customizedQuestion = await getCustomizedQuestion(student, question);
